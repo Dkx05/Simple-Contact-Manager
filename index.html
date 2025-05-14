@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple Contact Manager</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Add Font Awesome for search icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Add these styles to your style.css or keep them here */
+    .search-section {
+      position: relative;
+      margin: 20px 0;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .search-section i {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+    }
+    
+    #searchInput {
+      padding-left: 35px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .search-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .search-button:hover {
+      background-color: #45a049;
+    }
+
+    .highlight {
+      background-color: yellow;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Simple Contact Manager</h1>
+
+    <div class="form-section">
+      <input type="text" id="nameInput" placeholder="Enter Name">
+      <input type="text" id="phoneInput" placeholder="Enter Phone Number">
+      <button onclick="handleAddContact()">Add Contact</button>
+    </div>
+
+    <div class="search-section">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Search by Name">
+      <button class="search-button" onclick="handleSearch()">Search</button>
+    </div>
+
+    <div id="contactList" class="contact-list"></div>
+  </div>
+
+  <script>
+    // Your original JavaScript code
+    let contacts = [];
+
+    function addContact(name, phone) {
+        contacts.push({ name: name.trim(), phone: phone.trim() });
+        displayContacts(contacts);
+    }
+
+    function searchContact(keyword) {
+        return contacts.filter(contact =>
+            contact.name.toLowerCase().includes(keyword.toLowerCase().trim())
+        );
+    }
+
+    function displayContacts(contactArray, searchTerm = '') {
+        const list = document.getElementById("contactList");
+        list.innerHTML = "";
+
+        if (contactArray.length === 0) {
+            list.innerHTML = "<p>No contacts found</p>";
+            return;
+        }
+
+        contactArray.forEach(contact => {
+            const card = document.createElement("div");
+            card.className = "contact-card";
+
+            const nameElem = document.createElement("div");
+            nameElem.className = "contact-name";
+            
+            // Highlight matching text
+            if (searchTerm) {
+                const regex = new RegExp(searchTerm, 'gi');
+                const highlightedName = contact.name.replace(regex, 
+                    match => `<span class="highlight">${match}</span>`);
+                nameElem.innerHTML = highlightedName;
+            } else {
+                nameElem.textContent = contact.name;
+            }
+
+            const phoneElem = document.createElement("div");
+            phoneElem.className = "contact-phone";
+            phoneElem.textContent = contact.phone;
+
+            card.appendChild(nameElem);
+            card.appendChild(phoneElem);
+
+            list.appendChild(card);
+        });
+    }
+
+    function handleAddContact() {
+        const name = document.getElementById("nameInput").value;
+        const phone = document.getElementById("phoneInput").value;
+
+        if (name && phone) {
+            addContact(name, phone);
+            document.getElementById("nameInput").value = "";
+            document.getElementById("phoneInput").value = "";
+        } else {
+            alert("Please enter both name and phone number.");
+        }
+    }
+
+    function handleSearch() {
+        const keyword = document.getElementById("searchInput").value;
+        const results = searchContact(keyword);
+        displayContacts(results, keyword);
+    }
+
+    // Add keyup event for search input
+    document.getElementById("searchInput").addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            handleSearch();
+        }
+    });
+  </script>
+</body>
+</html>
+

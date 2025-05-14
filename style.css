@@ -1,0 +1,119 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f0f4f8;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Updated search section for button */
+.search-section {
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.search-section i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  z-index: 1;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#searchInput {
+  padding-left: 35px;
+  flex-grow: 1; /* Added for better button alignment */
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/* Specific style for search button */
+.search-button {
+  white-space: nowrap; /* Prevents text wrapping */
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-card {
+  background: #f9f9f9;
+  padding: 15px;
+  border-left: 4px solid #4CAF50;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+  background: #eafbea;
+}
+
+.contact-name {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.contact-phone {
+  color: #555;
+}
+
+/* New styles for search highlighting */
+.highlight {
+  background-color: #FFEB3B;
+  padding: 2px 4px;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.no-results {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  padding: 20px;
+}
